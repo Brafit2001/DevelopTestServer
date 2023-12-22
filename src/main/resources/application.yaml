@@ -1,0 +1,9 @@
+ktor:
+  development: true
+  application:
+    modules:
+      - com.pokemon.ModuleKt.module
+  deployment:
+    port: 8080
+    watch:
+      - classes
