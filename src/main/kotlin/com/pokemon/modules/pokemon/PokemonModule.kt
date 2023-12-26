@@ -58,30 +58,5 @@ fun Route.pokemonRouting(){
 
         }
 
-        /*
-        delete("{id?}"){
-            val id = call.parameters["id"]?.toInt()
-                ?: return@delete call.respond(HttpStatusCode.BadRequest)
-            dao.deletePokemon(id)
-            call.respondRedirect("/pokemon")
-        }
-        put("{id}") {
-
-            val pokemonReceived = call.receive<Pokemon>()
-            val pokemonSearch = dao.getPokemonById(pokemonReceived.id)
-            if (pokemonSearch == null){
-                dao.createPokemon(pokemonReceived.name, pokemonReceived.url)
-                call.respondText(
-                    "Pokemon was not in DB, created successfully",
-                    status = HttpStatusCode.Created
-                )
-            }else{
-                dao.editPokemon(pokemonSearch.id, pokemonSearch.name, pokemonSearch.url)
-                call.respondText("Pokemon updated correctly", status = HttpStatusCode.OK)
-            }
-
-        }
-
-         */
     }
 }
