@@ -1,13 +1,37 @@
 package com.pokemon.api.pokemon
 
-import com.pokemon.database.DatabaseProvider.dbQuery
-import com.pokemon.database.dao.Pokemons
+import com.pokemon.database.dao.PokemonDao
 import com.pokemon.model.Pokemon
-import kotlinx.coroutines.runBlocking
-import org.jetbrains.exposed.sql.*
-import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
+import com.pokemon.model.PostPokemonBody
+import com.pokemon.model.PutPokemonBody
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
-class PokemonApiImpl : PokemonApi {
+object PokemonApiImpl : PokemonApi, KoinComponent {
+
+    private val pokemonDao by inject<PokemonDao>()
+    override suspend fun getAllPokemons(): List<Pokemon> {
+        return pokemonDao.getAllPokemons()
+    }
+
+    override suspend fun getPokemonById(id: Int): Pokemon?{
+        return pokemonDao.getPokemonById(id)
+    }
+
+    override suspend fun createPokemon(postPokemon: PostPokemonBody): Pokemon? {
+        return pokemonDao.postPokemon(postPokemon)
+    }
+
+    override suspend fun editPokemon(id: Int, putPokemon: PutPokemonBody): Pokemon? {
+        return pokemonDao.putPokemon(id, putPokemon)
+    }
+
+    override suspend fun deletePokemon(id: Int): Boolean {
+        return pokemonDao.deletePokemon(id)
+    }
+
+
+    /*
     private fun resultRowToPokemon(row: ResultRow) =
         Pokemon(
             id = row[Pokemons.id],
@@ -47,7 +71,9 @@ class PokemonApiImpl : PokemonApi {
         Pokemons.deleteWhere { Pokemons.id eq id } > 0
     }
 
+     */
+
 
 }
 
-val dao: PokemonApi = PokemonApiImpl().apply { runBlocking {} }
+//val dao: PokemonApi = PokemonApiImpl().apply { runBlocking {} }

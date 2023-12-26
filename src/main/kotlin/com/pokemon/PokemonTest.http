@@ -1,0 +1,40 @@
+### CREATE POKEMON
+POST http://127.0.0.1:8080/v1/api/pokemons
+Content-Type: application/json
+
+{
+  "name": "postTest",
+  "url": ""
+}
+
+### DELETE POKEMON
+DELETE http://127.0.0.1:8080/v1/api/pokemons/1303
+
+
+### EDIT EXISTING POKEMON
+PUT http://127.0.0.1:8080/v1/api/pokemons/1305
+Content-Type: application/json
+
+
+{
+  "name": "prueba-edit",
+  "url": "prueba"
+}
+
+### POKEMON DOES NOT EXIST
+PUT http://127.0.0.1:8080/v1/api/pokemons/1306
+Content-Type: application/json
+
+
+{
+  "name": "prueba-edit-no-existe",
+  "url": "prueba"
+}
+
+### POKEMON NOT FOUND
+GET http://127.0.0.1:8080/v1/api/pokemons/1400
+
+
+
+
+
