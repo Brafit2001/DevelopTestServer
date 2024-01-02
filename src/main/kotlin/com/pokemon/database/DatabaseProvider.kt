@@ -26,9 +26,4 @@ object DatabaseProvider{
         newSuspendedTransaction(Dispatchers.IO) { block() }
 }
 
-interface DataBaseProviderContract{
-    fun init()
-    suspend fun <T> dbQuery(block: () -> T): T
-}
-
 

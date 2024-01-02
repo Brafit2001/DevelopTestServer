@@ -18,6 +18,10 @@ object PokemonApiImpl : PokemonApi, KoinComponent {
         return pokemonDao.getPokemonById(id)
     }
 
+    override suspend fun getPokemonByName(name: String): Pokemon?{
+        return pokemonDao.getPokemonByName(name)
+    }
+
     override suspend fun createPokemon(postPokemon: PostPokemonBody): Pokemon? {
         return pokemonDao.postPokemon(postPokemon)
     }

@@ -24,6 +24,12 @@ object Pokemons : Table("pokemons"), PokemonDao{
             .singleOrNull()
     }
 
+    override fun getPokemonByName(pokemonName: String): Pokemon?{
+        return select {name eq pokemonName }
+            .map(::resultRowToPokemon)
+            .singleOrNull()
+    }
+
     override fun postPokemon(postPokemon: PostPokemonBody): Pokemon? {
         val insertStatement = insert {
             it[name] = postPokemon.name
@@ -55,6 +61,7 @@ private fun resultRowToPokemon(row: ResultRow) =
 
 interface PokemonDao {
     fun getPokemonById(pokemonId: Int): Pokemon?
+    fun getPokemonByName(pokemonName: String): Pokemon?
     fun getAllPokemons(): List<Pokemon>
     fun postPokemon(postPokemon: PostPokemonBody): Pokemon?
     fun deletePokemon(pokemonId: Int): Boolean

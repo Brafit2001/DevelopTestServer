@@ -34,6 +34,10 @@ Content-Type: application/json
 ### POKEMON NOT FOUND
 GET http://127.0.0.1:8080/v1/api/pokemons/1400
 
+### GET ALL POKEMONS
+GET http://127.0.0.1:8080/v1/api/pokemons
+
+
 
 
 

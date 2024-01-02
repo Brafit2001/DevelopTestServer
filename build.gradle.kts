@@ -52,6 +52,9 @@ dependencies {
     implementation("io.ktor:ktor-server-host-common-jvm:2.3.7")
     implementation("io.ktor:ktor-server-status-pages-jvm:2.3.7")
 
+    //Thymeleaf
+    implementation("io.ktor:ktor-server-thymeleaf:$ktor_version")
+
     testImplementation("io.ktor:ktor-server-tests-jvm")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
     testImplementation("io.ktor:ktor-server-test-host-jvm:2.3.7")

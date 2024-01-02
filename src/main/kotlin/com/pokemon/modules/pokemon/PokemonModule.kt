@@ -17,21 +17,39 @@ fun Route.pokemonRouting(){
         val controller by inject<PokemonController>()
 
         get {
-            call.respond(controller.findAll())
+            val pokemonList = controller.findAll()
+            if (pokemonList.isEmpty()){
+                call.respondText("Database is Empty", status = HttpStatusCode.NoContent)
+            }else{
+                call.respond(pokemonList)
+            }
+
+        }
+        get("name/{name?}"){
+            val name = call.parameters["name"]
+            if (name != null) {
+                try {
+                    val pokemon = controller.searchPokemonByName(name)
+                    call.respond(pokemon)
+                }catch (e: PokemonNotFound){
+                    throw PokemonNotFound()
+                }
+            }else{
+                call.respondText("Invalid Id", status = HttpStatusCode.BadRequest)
+            }
         }
 
-        get("{id?}"){
+        get("id/{id?}"){
             val id = call.parameters["id"]?.toInt()
             if (id != null) {
                 try {
-                    val pokemon = controller.searchPokemon(id)
+                    val pokemon = controller.searchPokemonById(id)
                     call.respond(pokemon)
                 }catch (e: PokemonNotFound){
                     call.respondText(e.message)
                 }
-
-
-
+            }else{
+                call.respondText("Invalid Id", status = HttpStatusCode.BadRequest)
             }
         }
         post{
