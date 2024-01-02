@@ -40,6 +40,7 @@ dependencies {
     implementation("org.jetbrains.exposed:exposed-jdbc:$exposed_version")
     implementation("org.mariadb.jdbc:mariadb-java-client:3.3.1")
 
+    //CLIENT
     implementation("io.ktor:ktor-client-core-jvm:2.3.7")
     implementation("io.ktor:ktor-client-apache:2.3.7")
 
@@ -47,12 +48,12 @@ dependencies {
     implementation("io.insert-koin:koin-ktor:$koin_ktor")
     implementation("io.insert-koin:koin-logger-slf4j:$koin_ktor")
 
-    //Status Pages
+    //STATUS PAGES
     implementation("io.ktor:ktor-server-status-pages:$ktor_version")
     implementation("io.ktor:ktor-server-host-common-jvm:2.3.7")
     implementation("io.ktor:ktor-server-status-pages-jvm:2.3.7")
 
-    //Thymeleaf
+    //THYMELEAF
     implementation("io.ktor:ktor-server-thymeleaf:$ktor_version")
 
     testImplementation("io.ktor:ktor-server-tests-jvm")
