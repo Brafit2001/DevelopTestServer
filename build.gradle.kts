@@ -31,6 +31,9 @@ dependencies {
     implementation("io.ktor:ktor-server-content-negotiation:$ktor_version")
     implementation("io.ktor:ktor-serialization-kotlinx-json:$ktor_version")
 
+    //CONTENT NEGOTIATON (CLIENT)
+    implementation("io.ktor:ktor-client-content-negotiation:$ktor_version")
+
     implementation("io.ktor:ktor-server-netty-jvm")
     implementation("ch.qos.logback:logback-classic:$logback_version")
     implementation("io.ktor:ktor-server-config-yaml:2.3.7")
@@ -41,8 +44,9 @@ dependencies {
     implementation("org.mariadb.jdbc:mariadb-java-client:3.3.1")
 
     //CLIENT
-    implementation("io.ktor:ktor-client-core-jvm:2.3.7")
-    implementation("io.ktor:ktor-client-apache:2.3.7")
+    implementation("io.ktor:ktor-client-core:$ktor_version")
+    implementation("io.ktor:ktor-client-apache5:$ktor_version")
+    implementation("io.ktor:ktor-client-logging:$ktor_version")
 
     // Koin for Kotlin
     implementation("io.insert-koin:koin-ktor:$koin_ktor")
