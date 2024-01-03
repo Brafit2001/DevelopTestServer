@@ -30,7 +30,9 @@ fun Route.pokemonRouting(){
 
         get {
             val pokemonList = controller.findAll()
+            //Check if database is Empty
             if (pokemonList.isEmpty()){
+                //If so it fill out our database
                 val pokeApiList = extractPokemons()
                 pokeApiList.forEach {
                     controller.createPokemon(it)
@@ -94,6 +96,7 @@ fun Route.pokemonRouting(){
 }
 
 private suspend fun extractPokemons(): List<PostPokemonBody>{
+    //Extract all pokemons from pokeapi
     val client = HttpClient(Apache5) {
         engine {
             // this: Apache5EngineConfig
