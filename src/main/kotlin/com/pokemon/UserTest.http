@@ -1,0 +1,57 @@
+### CREATE USER
+POST http://127.0.0.1:8080/v1/api/users
+Content-Type: application/json
+
+{
+  "name": "pepe",
+  "password": "123",
+  "email": "pepe@email.com"
+}
+
+### DELETE USER
+DELETE http://127.0.0.1:8080/v1/api/users/2
+
+
+### EDIT EXISTING USER
+PUT http://127.0.0.1:8080/v1/api/users/3
+Content-Type: application/json
+
+
+{
+  "name": "prueba-edit",
+  "password": "1",
+  "email": "pepe@email.com"
+}
+
+### POKEMON DOES NOT EXIST
+PUT http://127.0.0.1:8080/v1/api/pokemons/1306
+Content-Type: application/json
+
+{
+  "name": "prueba-edit-no-existe",
+  "url": "prueba"
+}
+
+### POKEMON NOT FOUND
+GET http://127.0.0.1:8080/v1/api/pokemons/1400
+
+### GET ALL USERS
+
+GET http://127.0.0.1:8080/v1/api/users
+Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBdXRoZW50aWNhdGlvbiIsImlzcyI6ImNvbS5wb2tlbW9uIiwidXNlcklkIjo0LCJ1c2VyTmFtZSI6InBlcGUiLCJleHAiOjE3MDQ0NTUzMTF9.yDa0Sl5s8Hy4bq81RqQjvdZgwfFP7CqSraXCJYILxhiV1wx1FhNdHZjzBfyWqdiwzYo_tWHX2VpmqN4tvXBSnw
+
+
+### LOGIN
+POST http://127.0.0.1:8080/v1/api/users/login
+Content-Type: application/json
+
+{
+  "name": "pepe",
+  "password": "123"
+}
+
+
+
+
+
+

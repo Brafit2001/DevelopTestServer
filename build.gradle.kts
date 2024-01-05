@@ -60,6 +60,10 @@ dependencies {
     //THYMELEAF
     implementation("io.ktor:ktor-server-thymeleaf:$ktor_version")
 
+    //JWT
+    implementation("io.ktor:ktor-server-auth:$ktor_version")
+    implementation("io.ktor:ktor-server-auth-jwt:$ktor_version")
+
     testImplementation("io.ktor:ktor-server-tests-jvm")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
     testImplementation("io.ktor:ktor-server-test-host-jvm:2.3.7")

@@ -22,74 +22,67 @@ import org.koin.ktor.ext.inject
 
 fun Route.pokemonRouting(){
 
+    val controller by inject<PokemonController>()
 
-
-    route("/v1/api/pokemons"){
-
-        val controller by inject<PokemonController>()
-
-        get {
-            val pokemonList = controller.findAll()
-            //Check if database is Empty
-            if (pokemonList.isEmpty()){
-                //If so it fill out our database
-                val pokeApiList = extractPokemons()
-                pokeApiList.forEach {
-                    controller.createPokemon(it)
-                }
-            }
-            call.respond(pokemonList)
-        }
-        get("name/{name?}"){
-            val name = call.parameters["name"]
-            if (name != null) {
-                try {
-                    val pokemon = controller.searchPokemonByName(name)
-                    call.respond(pokemon)
-                }catch (e: PokemonNotFound){
-                    throw PokemonNotFound()
-                }
-            }else{
-                call.respondText("Invalid Id", status = HttpStatusCode.BadRequest)
+    get {
+        val pokemonList = controller.findAll()
+        //Check if database is Empty
+        if (pokemonList.isEmpty()){
+            //If so it fill out our database
+            val pokeApiList = extractPokemons()
+            pokeApiList.forEach {
+                controller.createPokemon(it)
             }
         }
+        call.respond(pokemonList)
+    }
+    post{
+        val postPokemon = call.receive<PostPokemonBody>()
+        controller.createPokemon(postPokemon)
+        call.respondText("Pokemon stored correctly", status = HttpStatusCode.Created)
+    }
 
-        get("id/{id?}"){
-            val id = call.parameters["id"]?.toInt()
-            if (id != null) {
-                try {
-                    val pokemon = controller.searchPokemonById(id)
-                    call.respond(pokemon)
-                }catch (e: PokemonNotFound){
-                    call.respondText(e.message)
-                }
-            }else{
-                call.respondText("Invalid Id", status = HttpStatusCode.BadRequest)
+    get("name/{name?}"){
+        val name = call.parameters["name"]
+        if (name != null) {
+            try {
+                val pokemon = controller.searchPokemonByName(name)
+                call.respond(pokemon)
+            }catch (e: PokemonNotFound){
+                throw PokemonNotFound()
             }
+        }else{
+            call.respondText("Invalid Id", status = HttpStatusCode.BadRequest)
         }
-
-        post{
-            val postPokemon = call.receive<PostPokemonBody>()
-            controller.createPokemon(postPokemon)
-            call.respondText("Pokemon stored correctly", status = HttpStatusCode.Created)
-        }
-        delete("{id}") {
-            val id = call.parameters["id"]?.toInt()
-            if (id != null) {
-                controller.deletePokemon(id)
-                call.respondText("Pokemon deleted correctly", status = HttpStatusCode.OK)
+    }
+    get("id/{id?}"){
+        val id = call.parameters["id"]?.toInt()
+        if (id != null) {
+            try {
+                val pokemon = controller.searchPokemonById(id)
+                call.respond(pokemon)
+            }catch (e: PokemonNotFound){
+                call.respondText(e.message)
             }
+        }else{
+            call.respondText("Invalid Id", status = HttpStatusCode.BadRequest)
         }
-        put ( "{id}"){
-            val id = call.parameters["id"]?.toInt()
-            val pokemonReceived = call.receive<PutPokemonBody>()
-            if (id != null){
-                controller.updatePokemon(id, pokemonReceived)
-                call.respondText("Pokemon updated correctly", status = HttpStatusCode.OK)
-            }else{
-                call.respondText("Invalid Id", status = HttpStatusCode.BadRequest)
-            }
-
+    }
+    delete("{id}") {
+        val id = call.parameters["id"]?.toInt()
+        if (id != null) {
+            controller.deletePokemon(id)
+            call.respondText("Pokemon deleted correctly", status = HttpStatusCode.OK)
+        }
+    }
+    put ( "{id}"){
+        val id = call.parameters["id"]?.toInt()
+        val pokemonReceived = call.receive<PutPokemonBody>()
+        if (id != null){
+            controller.updatePokemon(id, pokemonReceived)
+            call.respondText("Pokemon updated correctly", status = HttpStatusCode.OK)
+        }else{
+            call.respondText("Invalid Id", status = HttpStatusCode.BadRequest)
         }
 
     }
